@@ -22,9 +22,9 @@
     </head>
     <body>
       <header class="site-header">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">Flask Blog</a>
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel">
+          <div class="container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">Flask Blog</a>
             <button class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
@@ -34,21 +34,24 @@
                     aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                <a class="nav-link" href="#">About</a>
-                <a class="nav-link" href="#">Resources</a>
-                <a class="nav-link" href="#">Partnership</a>
-              </div>
+            <div class="navbar-nav collapse navbar-collapse" id="navbarNavAltMarkup">
+              <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
+              <a class="nav-link" href="#">Resources</a>
+              <a class="nav-link" href="#">Share</a>
+              <a class="nav-link" href="{{ url_for('about') }}">About</a>
+              
             </div>
             <form class="d-flex" role="search">
               <input class="form-control me-2"
                      type="search"
                      placeholder="Search"
                      aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
+              <button class="btn btn-outline-light" type="submit">Search</button>
             </form>
+            <div class="navbar-nav d-flex">
+                <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+                <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+              </div>
           </div>
         </nav>
       </header>
