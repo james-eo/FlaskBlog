@@ -54,6 +54,11 @@ def login():
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
             flash(f"Logged in successfully", "success")
+            
+            # Ensure 'next_page' is an internal path.
+            # Prevent open redirect vulnerability and phishing or malicious site redirections 
+            if next_page and not next_page.startswith('/'):
+                next_page = None
             return redirect(next_page) if next_page else redirect(url_for("home"))
         else:
             flash("Invalid credentials. Please check your email and password", "danger")
