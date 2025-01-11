@@ -49,7 +49,11 @@ def login():
         return redirect(url_for("home"))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        try:
+            user = User.query.filter_by(email=form.email.data).first()
+        except Exception as e:
+            flash("An error occurred while processing your login. Please try again later", "danger")
+            return redirect(url_for("login"))
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
