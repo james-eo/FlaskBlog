@@ -58,7 +58,7 @@ def login():
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
             flash(f"Logged in successfully", "success")
-            
+
             # Ensure 'next_page' is an internal path.
             # Prevent open redirect vulnerability and phishing or malicious site redirections 
             if next_page and not next_page.startswith('/'):
@@ -76,4 +76,5 @@ def logout():
 @app.route("/account")
 @login_required
 def account():
-    return render_template("account.html", title="Account")
+    image_file = url_for("static", filename="profile_pics/" + current_user.image_file)
+    return render_template("account.html", title="Account", image_file=image_file)
