@@ -11,6 +11,21 @@ users = Blueprint('users', __name__)
 
 @users.route("/register", methods=['GET', 'POST'])
 def register():
+    """Handle user registration.
+    
+    Processes registration form, validates input, hashes password,
+    and creates new user account. Redirects authenticated users.
+    
+    Returns:
+        Response: Either:
+            - Redirect to home (if authenticated)
+            - Redirect to login (after successful registration)
+            - Rendered register template (with form errors if any)
+            
+    Notes:
+        Uses bcrypt for password hashing.
+        Flash messages indicate success/failure to user.
+    """
     if current_user.is_authenticated:
         return redirect(url_for("main.home"))
     form = RegistrationForm()
@@ -26,6 +41,28 @@ def register():
 
 @users.route("/login", methods=['GET', 'POST'])
 def login():
+    """
+    Handles user authentication.
+    
+    This function renders the login form and processes form submissions.
+    If the user is already authenticated, they are redirected to the home page.
+    
+    Methods:
+        GET: Renders the login form
+        POST: Processes the login form data and authenticates the user
+        
+    Returns:
+        GET: Rendered login template
+        POST: Redirect to next page or home page on successful login
+    
+    Redirects:
+        - To home page if user is already authenticated
+        - To next page or home page after successful login
+    
+    Security Features:
+        - Validates the next parameter to prevent open redirect vulnerabilities
+        - Handles database exceptions with appropriate error messages
+    """
     if current_user.is_authenticated:
         return redirect(url_for("main.home"))
     form = LoginForm()
@@ -51,6 +88,14 @@ def login():
 
 @users.route("/logout")
 def logout():
+    """
+    Handles user logout.
+    
+    This function logs out the current user and redirects to the login page.
+    
+    Returns:
+        Redirect to login page
+    """
     logout_user()
     return redirect(url_for("users.login"))
 
@@ -58,6 +103,23 @@ def logout():
 @users.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
+    """
+    Handles user account management.
+    
+    This function renders the account form and processes form submissions.
+    Users can update their username, email, and profile picture.
+    
+    Methods:
+        GET: Renders the account form pre-populated with current user data
+        POST: Processes the account form data and updates the user profile
+        
+    Returns:
+        GET: Rendered account template with pre-populated form
+        POST: Redirect to account page on successful update
+    
+    Decorators:
+        login_required: Ensures that only authenticated users can access this route
+    """
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
@@ -76,6 +138,21 @@ def account():
 
 @users.route("/user/<string:username>")
 def user_posts(username):
+    """Displays posts by a specific user.
+    
+    This function retrieves and displays all posts by a specific user with pagination.
+    
+    Args:
+        username (str): The username of the user whose posts to display
+        
+    URL Parameters:
+        page (int): The page number for pagination (default: 1)
+        
+    Returns:
+        Rendered user_posts template with paginated posts
+    Raises:
+        404: If the specified username does not exist
+    """
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
     posts = Post.query.filter_by(author=user)\
@@ -84,6 +161,24 @@ def user_posts(username):
 
 @users.route("/reset_password", methods=['GET', 'POST'])
 def reset_password_request():
+    """
+    Handles password reset requests.
+    
+    This function renders the reset request form and processes form submissions.
+    If the user is already authenticated, they are redirected to the home page.
+    
+    Methods:
+        GET: Renders the reset request form
+        POST: Processes the reset request form data and sends a reset email
+        
+    Returns:
+        GET: Rendered reset_request template
+        POST: Redirect to login page after sending reset email
+    
+    Redirects:
+        - To home page if user is already authenticated
+        - To login page after sending reset email
+    """
     if current_user.is_authenticated:
         return redirect(url_for("main.home"))
     form = ResetPasswordRequestForm()
@@ -98,6 +193,28 @@ def reset_password_request():
 
 @users.route("/reset_password/<token>", methods=['GET', 'POST'])
 def reset_password_token(token):
+    """
+    Processes password reset tokens.
+    
+    This function verifies the reset token and processes the reset password form.
+    If the user is already authenticated, they are redirected to the home page.
+    
+    Args:
+        token (str): The password reset token to verify
+        
+    Methods:
+        GET: Renders the reset password form
+        POST: Processes the reset password form data and updates the user's password
+        
+    Returns:
+        GET: Rendered reset_token template
+        POST: Redirect to login page after updating password
+    
+    Redirects:
+        - To home page if user is already authenticated
+        - To reset_token route if token is invalid or expired
+        - To login page after updating password
+    """
     if current_user.is_authenticated:
         return redirect(url_for("main.home"))
     user = User.verify_reset_token(token)
