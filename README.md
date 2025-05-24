@@ -1,10 +1,14 @@
 # Flask Blog
 
-A full-featured blog application built with Flask, featuring user authentication, post management, and profile customization.
+Flaskblog is a blog application platform (still under development), built using the Flask web framework and Jinja2 (for frontend). It is built to manage blog posts, technical documentation and articles, user authentication, and web page rendering. The web application allows users, especially those in the technology industry, to register, log in, create, edit, and delete blog posts, and display them on a public feed where other users can come and read. The application also supports features like comments, post categories, password hashing, and administrative controls. It could be likened to Medium or other freelance blog platforms; only FlaskBlog is built with community in mind.
 
-![Blog Home Page](https://images.pexels.com/photos/262508/pexels-photo-262508.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)
+![Blog Home Page]()
+![Blog Features]()
+![Tech Stack]()
+![Project Structure]()
 
 ## Table of Contents
+
 - [Features](#features)
 - [Technology Stack](#technology-stack)
 - [Setup and Installation](#setup-and-installation)
@@ -28,8 +32,6 @@ A full-featured blog application built with Flask, featuring user authentication
 - User Profile Pictures
 - Error Pages (404, 403, 500)
 
-![Blog Features](https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)
-
 ## Technology Stack
 
 - **Backend**: Flask
@@ -40,8 +42,6 @@ A full-featured blog application built with Flask, featuring user authentication
 - **Email Support**: Flask-Mail
 - **Frontend**: Bootstrap 5
 - **Image Processing**: Pillow
-
-![Tech Stack](https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)
 
 ## Setup and Installation
 
@@ -97,11 +97,10 @@ flaskblog/
     └── handlers.py
 ```
 
-![Project Structure](https://images.pexels.com/photos/1181298/pexels-photo-1181298.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)
-
 ## Features in Detail
 
 ### User Management
+
 - User registration with username and email validation
 - Secure password hashing
 - User authentication
@@ -109,6 +108,7 @@ flaskblog/
 - Profile information updates
 
 ### Blog Posts
+
 - Create, edit, and delete posts
 - Rich text content
 - Post pagination
@@ -116,6 +116,7 @@ flaskblog/
 - Post update and deletion authorization
 
 ### Security Features
+
 - Password hashing
 - User session management
 - CSRF protection
@@ -123,6 +124,7 @@ flaskblog/
 - Route protection
 
 ### Error Handling
+
 - Custom error pages
 - Proper error messages
 - User-friendly error descriptions
