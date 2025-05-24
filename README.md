@@ -4,6 +4,20 @@ A full-featured blog application built with Flask, featuring user authentication
 
 ![Blog Home Page](https://images.pexels.com/photos/262508/pexels-photo-262508.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)
 
+## Table of Contents
+- [Features](#features)
+- [Technology Stack](#technology-stack)
+- [Setup and Installation](#setup-and-installation)
+- [Project Structure](#project-structure)
+- [Features in Detail](#features-in-detail)
+  - [User Management](#user-management)
+  - [Blog Posts](#blog-posts)
+  - [Security Features](#security-features)
+  - [Error Handling](#error-handling)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+
 ## Features
 
 - User Authentication (Register, Login, Logout)
