@@ -1,6 +1,12 @@
 from flaskblog import app, db, User, Post
 
 
+# This script is used to create the database and tables for the Flask application.
+# It also creates some initial users and posts for testing purposes.
+
+# The section below is commented out to prevent accidental execution
+# Uncomment it to create the database and initial data
+
 # with app.app_context():
 #     # create tables
 #     db.create_all()
