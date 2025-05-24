@@ -8,6 +8,21 @@ from flaskblog import mail
 
 
 def save_picture(form_picture):
+    """Process and save uploaded profile picture.
+    
+    Generates a random filename, resizes the image to 125x125 pixels,
+    and saves it to the profile_pics directory.
+    
+    Args:
+        form_picture (FileStorage): The image file uploaded via Flask-WTF.
+        
+    Returns:
+        str: The generated filename for database storage.
+        
+    Example:
+        >>> save_picture(uploaded_file)
+        'a3f8bc9e.jpg'
+    """
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
@@ -21,6 +36,14 @@ def save_picture(form_picture):
     return picture_fn
 
 def send_reset_email(user):
+    """
+    Sends a password reset email to the user.
+
+    Args:
+        user: User instance for whom the email is being sent.
+
+    - Generates reset token and includes it in the email.
+    """
     token = user.get_reset_token()
     msg = Message("Password Reset Request", sender="noreply@ejiks.com", recipients=[user.email])
     msg.body = f"""To reset your password, visit the following link:
